@@ -1,75 +1,125 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fff8ef;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-.main-title {
-  font-size: 3em;
-  font-style: italic;
-  color: #e91e63;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naa Chitti Lokam</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #0f172a, #1e293b, #3b0764, #1a1a40);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-.section-title {
-  font-size: 2em;
-  margin: 30px 0 20px;
-  color: #d32f2f;
-}
+        h1 {
+            text-align: center;
+            font-size: 3.5em;
+            margin: 40px 0;
+            background: linear-gradient(to right, #ff6f61, #ffcc00, #ff6f61);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
 
-.categories {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px;
-}
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #ff6f61, 0 0 20px #ffcc00;
+            }
+            to {
+                text-shadow: 0 0 20px #ff6f61, 0 0 30px #ffcc00, 0 0 40px #ff6f61;
+            }
+        }
 
-.category {
-  width: 200px;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #fff3e0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
-}
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
 
-.category:hover {
-  transform: scale(1.05);
-}
+        .item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            width: 200px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            backdrop-filter: blur(5px);
+        }
 
-.category img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-}
+        .item:hover {
+            transform: scale(1.05);
+        }
 
-.category p {
-  font-size: 1.1em;
-  padding: 10px;
-  color: #5d4037;
-}
+        .item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
 
-.item-list {
-  list-style-type: none;
-  padding: 0;
-}
+        .falling-particles::before {
+            content: "🍕🍔🍟🍩🥗🍱🍓🥘🍛";
+            position: fixed;
+            top: -10%;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: fall 10s linear infinite;
+        }
 
-.item-list li {
-  margin: 15px 0;
-  font-size: 1.2em;
-}
+        @keyframes fall {
+            0% { top: -10%; transform: translateX(0); }
+            100% { top: 110%; transform: translateX(50vw); }
+        }
+    </style>
+</head>
 
-a {
-  color: #0077cc;
-  text-decoration: none;
-}
+<body>
+    <div class="falling-particles"></div>
+    <h1>Naa Chitti Lokam</h1>
+    <div class="container">
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?sweets" alt="Sweets">
+            <p>Sweets</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?juice" alt="Juices">
+            <p>Juices</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?rice" alt="Rice Items">
+            <p>Rice Items</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?veg curry" alt="Veg Curries">
+            <p>Veg Curries</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?nonveg curry" alt="Non-Veg Curries">
+            <p>Non-Veg Curries</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?snacks" alt="Snacks">
+            <p>Snacks</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?desserts" alt="Desserts">
+            <p>Desserts</p>
+        </div>
+        <div class="item">
+            <img src="https://source.unsplash.com/100x100/?breakfast" alt="Breakfast">
+            <p>Breakfast</p>
+        </div>
+    </div>
+</body>
 
-a:hover {
-  text-decoration: underline;
-}
+</html>
 
