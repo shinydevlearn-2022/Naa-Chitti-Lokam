@@ -6,69 +6,64 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="falling-food-container" id="falling-food-container"></div>
 
-  <!-- Falling food particles -->
-  <img class="falling-food" src="https://cdn-icons-png.flaticon.com/128/135/135620.png" style="left: 5%;" />
-  <img class="falling-food" src="https://cdn-icons-png.flaticon.com/128/883/883407.png" style="left: 20%; animation-delay: 3s;" />
-  <img class="falling-food" src="https://cdn-icons-png.flaticon.com/128/1046/1046784.png" style="left: 40%; animation-delay: 6s;" />
-  <img class="falling-food" src="https://cdn-icons-png.flaticon.com/128/685/685352.png" style="left: 60%; animation-delay: 1s;" />
-  <img class="falling-food" src="https://cdn-icons-png.flaticon.com/128/1046/1046752.png" style="left: 80%; animation-delay: 4s;" />
-
-  <!-- Main title -->
-  <h1 class="section-title">Naa Chitti Lokam</h1>
-
-  <!-- Food Categories -->
-  <div class="categories">
-    <div class="category">
-      <a href="sweets.html">
-        <img src="images/sweets.jpg" alt="Sweets">
+  <div class="container">
+    <h1 class="title rainbow-text">Naa Chitti Lokam</h1>
+    <div class="menu">
+      <a href="Sweets.html" class="item">
+        <img src="images/Sweets.jpg" alt="Sweets">
         <p>Sweets</p>
       </a>
-    </div>
-    <div class="category">
-      <a href="juices.html">
-        <img src="images/juices.jpg" alt="Juices">
+      <a href="Juices.html" class="item">
+        <img src="images/Juices.jpg" alt="Juices">
         <p>Juices</p>
       </a>
-    </div>
-    <div class="category">
-      <a href="Rice-Items.html">
-        <img src="images/biryanis.jpg" alt="Rice Items">
+      <a href="Rice-Items.html" class="item">
+        <img src="images/Rice-Items.jpg" alt="Rice Items">
         <p>Rice Items</p>
       </a>
-    </div>
-    <div class="category">
-      <a href="Veg-Curries.html">
-        <img src="images/curries.jpg" alt="Veg Curries">
+      <a href="Veg-Curries.html" class="item">
+        <img src="images/Veg-Curries.jpg" alt="Veg Curries">
         <p>Veg Curries</p>
       </a>
-    </div>
-    <div class="category">
-      <a href="Nonveg-Curries.html">
-        <img src="images/curries.jpg" alt="Non-Veg Curries">
-        <p>Non-Veg Curries</p>
-      </a>
-    </div>
-    <div class="category">
-      <a href="Snacks.html">
-        <img src="images/snacks.jpg" alt="Snacks">
+      <a href="Snacks.html" class="item">
+        <img src="images/Snacks.jpg" alt="Snacks">
         <p>Snacks</p>
       </a>
-    </div>
-    <div class="category">
-      <a href="Desserts.html">
-        <img src="images/desserts.jpg" alt="Desserts">
+      <a href="Desserts.html" class="item">
+        <img src="images/Desserts.jpg" alt="Desserts">
         <p>Desserts</p>
       </a>
-    </div>
-    <div class="category">
-      <a href="Breakfast.html">
-        <img src="images/tiffens.jpg" alt="Breakfast">
+      <a href="Nonveg-Curries.html" class="item">
+        <img src="images/Nonveg-Curries.jpg" alt="Non-Veg Curries">
+        <p>Non-Veg Curries</p>
+      </a>
+      <a href="Breakfast.html" class="item">
+        <img src="images/Breakfast.jpg" alt="Breakfast">
         <p>Breakfast</p>
       </a>
     </div>
   </div>
 
+  <script>
+    const container = document.getElementById("falling-food-container");
+    const emojis = ["🍕", "🍩", "🍔", "🍎", "🍇", "🥦", "🍓", "🍰", "🧁", "🍦"];
+
+    function createFood() {
+      const food = document.createElement("div");
+      food.className = "falling";
+      food.style.left = Math.random() * 100 + "vw";
+      food.style.animationDuration = (5 + Math.random() * 5) + "s";
+      food.style.fontSize = Math.random() * 24 + 16 + "px";
+      food.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      container.appendChild(food);
+
+      setTimeout(() => container.removeChild(food), 10000);
+    }
+
+    setInterval(createFood, 300);
+  </script>
 </body>
 </html>
 

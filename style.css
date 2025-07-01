@@ -1,143 +1,96 @@
-/* Background with dark gradient and animation */
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1f1f2e, #0f2c2c, #2a003f, #111c3f);
-  background-size: 400% 400%;
-  animation: gradientMove 20s ease infinite;
-  color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #000000, #1a1a2e);
   overflow-x: hidden;
+  color: white;
+}
+
+.container {
+  text-align: center;
+  padding: 40px 20px;
   position: relative;
+  z-index: 2;
 }
 
-@keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 8px #000;
+  margin-bottom: 40px;
 }
 
-/* Title Styling: Sparkly, bright text with texture background */
-.section-title {
-  font-size: 3rem;
-  text-align: center;
-  margin: 40px 0 20px;
-  color: transparent;
-  background: url('https://www.transparenttextures.com/patterns/cubes.png'), linear-gradient(to right, #ffde59, #ff914d, #ff4d79, #d100d1);
+.rainbow-text {
+  background: linear-gradient(to right, #ff6a00, #ffcc00, #00ff6a, #00cfff, #ff00ff);
   -webkit-background-clip: text;
-  background-clip: text;
-  animation: glitter 2s infinite linear;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowMove 5s linear infinite;
+  background-size: 400% auto;
 }
 
-@keyframes glitter {
-  0% {text-shadow: 0 0 5px #fff;}
-  50% {text-shadow: 0 0 20px #ffd700;}
-  100% {text-shadow: 0 0 5px #fff;}
+@keyframes rainbowMove {
+  0% { background-position: 0% }
+  100% { background-position: 100% }
 }
 
-/* Snack items list */
-.item-list {
-  list-style: none;
-  padding: 0;
-  max-width: 800px;
-  margin: 0 auto 50px;
-}
-
-.item-list li {
-  background: rgba(255, 255, 255, 0.05);
-  margin: 15px;
-  padding: 15px 20px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.menu {
   display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: 0.3s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
 }
 
-.item-list li:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.01);
-}
-
-.item-list img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 2px solid #fff;
-}
-
-.item-list a {
-  color: #ffd700;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.2s;
-}
-
-.item-list a:hover {
-  color: #ffffff;
-}
-
-/* Back to home link */
-a[href="index.html"] {
-  display: block;
+.item {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid #444;
+  border-radius: 12px;
+  padding: 10px;
+  width: 160px;
   text-align: center;
-  margin: 30px auto;
-  color: #ccc;
-  font-size: 1rem;
-  text-decoration: underline;
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
 }
 
-a[href="index.html"]:hover {
-  color: #fff;
+.item:hover {
+  transform: scale(1.08);
 }
 
-/* Floating food particles animation */
-.falling-food {
+.item img {
+  width: 100%;
+  border-radius: 8px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.item p {
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Falling food particles */
+.falling-food-container {
   position: fixed;
-  width: 30px;
-  height: 30px;
-  animation: fall 15s linear infinite;
-  z-index: 0;
-  opacity: 0.6;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.falling {
+  position: absolute;
+  top: -50px;
+  animation: fall 10s linear infinite;
 }
 
 @keyframes fall {
-  0% {
-    transform: translateY(-100px) rotate(0deg);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .section-title {
-    font-size: 2.2rem;
-  }
-
-  .item-list li {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .item-list img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .item-list a {
-    font-size: 1rem;
-  }
+  0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
