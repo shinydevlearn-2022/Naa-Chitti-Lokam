@@ -1,0 +1,23 @@
+{
+  "name": "naa-chitti-lokam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam/issues"
+  },
+  "homepage": "https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
