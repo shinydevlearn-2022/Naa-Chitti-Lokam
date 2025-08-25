@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: naa-chitti-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: naa-chitti
+  template:
+    metadata:
+      labels:
+        app: naa-chitti
+    spec:
+      containers:
+      - name: naa-chitti-container
+        image: shinykuchi/naa-chitti-lokam-webapp:latest
+        ports:
+        - containerPort: 3000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: naa-chitti-service
+spec:
+  type: NodePort
+  selector: 
+    app: naa-chitti
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30080
