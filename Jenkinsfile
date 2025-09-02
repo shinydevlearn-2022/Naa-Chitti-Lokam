@@ -1,26 +1,26 @@
 pipeline {
   agent any
-
+  tools {
+    maven 'Maven3'
+  }
   stages {
-    stage('Clone Repository') {
+    stage ('Checkout') {
       steps {
-        git 'https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam.git'
+        git branch: 'main', url: 'https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam.git'
       }
     }
-
-    stage('Build Website') {
+    stage ('Build with Maven') {
       steps {
-        echo 'Website files pulled successfully!'
+        sh 'mvn clean install - DskipTests'
       }
     }
   }
-
   post {
     success {
-      echo 'Build completed successfully!'
+      echo "Phase 1 Success: Code checked out and Maven build completed"
     }
     failure {
-      echo 'Build failed.'
+      echo "Phase 1 Failed: Check Maven logs"
     }
   }
 }
