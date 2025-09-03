@@ -16,7 +16,7 @@ pipeline {
     stage ('Run Container(Test)') {
       steps {
         script {
-          sh 'docker run -d -p 3000:3000 --name naa-chitti-test naa-chitti-lokam:latest'
+          sh 'docker run -d -p --name naa-chitti-test naa-chitti-lokam:latest'
         }
       }
     }
