@@ -34,10 +34,12 @@ pipeline {
     steps {
       script {
         docker.withRegistry('http://index.docker.io/v1/', 'docker-credentials') {
+          dockerImage.push()
         }
       }
     }
-  }
+   }
+}
   post {
     success {
       echo "Phase Success: Docker image build and pushed to DockerHub!"
