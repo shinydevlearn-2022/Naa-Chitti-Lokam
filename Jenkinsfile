@@ -6,18 +6,13 @@ pipeline {
         git branch: 'main', url: 'https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam.git'
       }
     }
-    stage ('Archieve Website files') {
-      steps {
-        archieveArtifacts artifacts: '**/*.html, **/*.css, **/*.js, **/*.png, **/*.jpg', fingerprint: true
-      }
-    }
   } 
   post {
     success {
-      echo "Phase 1 Success: Website files archieved in Jenkins"
+      echo "Phase 1 Success: Code successfully checked out from GitHub!"
     }
     failure {
-      echo "Phase 1 Failed: Check logs"
+      echo "Could not checkout code from GitHub."
     }
   }
 }
