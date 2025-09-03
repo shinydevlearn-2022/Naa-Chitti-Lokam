@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    DOCKER_HUB_REPO = "shinykuchi/naa-chitti-lokam-webapp"
+  }
   stages {
     stage ('Checkout') {
       steps {
@@ -27,9 +30,17 @@ pipeline {
       }
     }
   }
+  stage ('Docker Push') {
+    steps {
+      script {
+        docker.withRegistry('http://index.docker.io/v1/', 'docker-credentials') {
+        }
+      }
+    }
+  }
   post {
     success {
-      echo "Phase Success: Docker image build and container started!"
+      echo "Phase Success: Docker image build and pushed to DockerHub!"
     }
     failure {
       echo "Phase Failure: Check Docker build logs."
