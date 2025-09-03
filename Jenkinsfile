@@ -1,26 +1,23 @@
 pipeline {
   agent any
-  tools {
-    maven 'MavenLocal'
-  }
   stages {
     stage ('Checkout') {
       steps {
         git branch: 'main', url: 'https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam.git'
       }
     }
-    stage ('Build with Maven') {
+    stage ('Archieve Website files') {
       steps {
-        sh 'mvn clean install - DskipTests'
+        archieveArtifacts artifacts: '**/*.html, **/*.css, **/*.js, **/*.png, **/*.jpg', fingerprint: true
       }
     }
-  }
+  } 
   post {
     success {
-      echo "Phase 1 Success: Code checked out and Maven build completed"
+      echo "Phase 1 Success: Website files archieved in Jenkins"
     }
     failure {
-      echo "Phase 1 Failed: Check Maven logs"
+      echo "Phase 1 Failed: Check logs"
     }
   }
 }
