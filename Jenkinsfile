@@ -16,8 +16,14 @@ pipeline {
     stage ('Run Container(Test)') {
       steps {
         script {
-          sh 'docker run -d -p --name naa-chitti-test naa-chitti-lokam:latest'
+          sh 'docker run -d -p 0:3000 --name naa-chitti-test naa-chitti-lokam:latest'
         }
+      }
+    }
+    stage ('Check running Containers') {
+      steps {
+        sh 'docker ps -a || grep naa-chitti-test'
+        sh 'docker port naa-chitti-test'
       }
     }
   }
@@ -30,7 +36,7 @@ pipeline {
     }
     always {
       //Clean up container if exists
-      sh 'docker rm -f "naa-chitti-test || true'
+      sh 'docker rm -f naa-chitti-test || true'
     }
   }
 }
