@@ -2,6 +2,8 @@ pipeline {
   agent any
   environment {
     DOCKER_HUB_REPO = "shinykuchi/naa-chitti-lokam-webapp"
+    DOCKER_CREDS = "docker-credentials"
+    SONARQUBE_ENV = "SonarQube"
   }
   stages {
     stage ('Checkout') {
@@ -42,14 +44,20 @@ pipeline {
         }
       }
     }
+    stage ('Code Quality - SonarQube') {
+      steps {
+        withSonarQubeEnv("${SONARQUBE_ENV}") {
+          sh "SonarScanner"
+        }
+      }
+    }
   }
-
   post {
     success {
-      echo "Phase Success: Docker image built and pushed to DockerHub!"
+      echo "Phase Success: SonarQube analysis is completed"
     }
     failure {
-      echo "Phase Failure: Check Docker build logs."
+      echo "Phase Failure: Check logs."
     }
     always {
       // Clean up container if exists
