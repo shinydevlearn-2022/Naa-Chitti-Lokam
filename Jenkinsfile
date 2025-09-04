@@ -47,7 +47,7 @@ pipeline {
     stage ('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv("${SONARQUBE_ENV}") {
-          sh "SonarScanner"
+          sh "sonar-scanner"
         }
       }
     }
