@@ -46,8 +46,15 @@ pipeline {
     }
     stage ('Code Quality - SonarQube') {
       steps {
-        withSonarQubeEnv("${SONARQUBE_ENV}") {
-          sh "sonar-scanner"
+        withSonarQubeEnv('SonarQube') {
+          sh '''
+              sonar-scanner \
+                -Dsonar.projectKey=testproject \
+                -Dsonar.projectName=Naa-Chitti-Lokam \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=http://localhost:9000 \
+                -Dsonar.login=$SONAR_TOKEN
+          '''
         }
       }
     }
