@@ -53,7 +53,7 @@ pipeline {
                 -Dsonar.projectName=Naa-Chitti-Lokam \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=$SONAR_TOKEN
+                -Dsonar.login=$sonar-token
           '''
         }
       }
