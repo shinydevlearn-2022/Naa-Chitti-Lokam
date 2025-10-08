@@ -1,21 +1,17 @@
 pipeline {
     agent any
-
     environment {
         DOCKER_HUB_REPO = "shinykuchi/naa-chitti-lokam-webapp"
         DOCKER_CREDS = "docker-credentials"
         SONARQUBE_ENV = "SonarQube"
         SONAR_TOKEN = credentials('sonarqube token')
     }
-
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/shinydevlearn-2022/Naa-Chitti-Lokam.git'
             }
         }
-
         stage('Docker Build') {
             steps {
                 script {
@@ -23,7 +19,6 @@ pipeline {
                 }
             }
         }
-
         stage('Run Container (Test)') {
             steps {
                 script {
@@ -31,14 +26,12 @@ pipeline {
                 }
             }
         }
-
         stage('Check Running Containers') {
             steps {
                 sh 'docker ps -a | grep naa-chitti-test || true'
                 sh 'docker port naa-chitti-test || true'
             }
         }
-
         stage('Docker Push') {
             steps {
                 script {
@@ -48,7 +41,6 @@ pipeline {
                 }
             }
         }
-
         stage('Code Quality - SonarQube') {
             steps {
                 withSonarQubeEnv("${SONARQUBE_ENV}") {
@@ -66,7 +58,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo "✅ Phase Success: SonarQube analysis and Docker push completed successfully!"
