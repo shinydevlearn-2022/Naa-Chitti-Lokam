@@ -66,12 +66,10 @@ pipeline {
             echo "❌ Phase Failure: Check pipeline logs for details."
         }
         always {
-            node {
                 script {
                     echo "🧹 Cleaning up test container..."
                     sh 'docker rm -f naa-chitti-test || true'
                 }
-            }
         }
     }
 }
