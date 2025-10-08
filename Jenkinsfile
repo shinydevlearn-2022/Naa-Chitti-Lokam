@@ -4,6 +4,7 @@ pipeline {
     DOCKER_HUB_REPO = "shinykuchi/naa-chitti-lokam-webapp"
     DOCKER_CREDS = "docker-credentials"
     SONARQUBE_ENV = "SonarQube"
+    SONAR_TOKEN = credentials('sonarqube token')
   }
   stages {
     stage ('Checkout') {
@@ -48,12 +49,12 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           sh '''
-              sonar-scanner \
+          ${tool 'SonarScanner'}/bin/sonar-scanner \
                 -Dsonar.projectKey=testproject \
                 -Dsonar.projectName=Naa-Chitti-Lokam \
                 -Dsonar.sources=. \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=$sonar_token
+                -Dsonar.login=$SONAR_TOKEN
           '''
         }
       }
