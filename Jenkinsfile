@@ -4,7 +4,7 @@ pipeline {
         DOCKER_HUB_REPO = "shinykuchi/naa-chitti-lokam-webapp"
         DOCKER_CREDS = "docker-credentials"
         SONARQUBE_ENV = "SonarQube"
-        SONAR_TOKEN = credentials('sonarqube token')
+        SONAR_TOKEN = credentials('sonar-token')
     }
     stages {
         stage('Checkout') {
@@ -66,9 +66,11 @@ pipeline {
             echo "❌ Phase Failure: Check pipeline logs for details."
         }
         always {
-            script {
-                echo "🧹 Cleaning up test container..."
-                sh 'docker rm -f naa-chitti-test || true'
+            node {
+                script {
+                    echo "🧹 Cleaning up test container..."
+                    sh 'docker rm -f naa-chitti-test || true'
+                }
             }
         }
     }
