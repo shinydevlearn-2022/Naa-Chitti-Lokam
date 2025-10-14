@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    echo "🔎 Scanning Docker image for vulnerabilities..."
+                    echo "Scanning Docker image for vulnerabilities..."
                     trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_HUB_REPO}:latest
                     """
                 }
