@@ -24,7 +24,7 @@ pipeline {
                 script {
                     sh """
                     echo "Scanning Docker image for vulnerabilities..."
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_HUB_REPO}:latest
+                    trivy image --exit-code 1 --severity HIGH,CRITICAL --timeout 10m shinykuchi/naa-chitti-lokam-webapp:latest
                     """
                 }
             }
