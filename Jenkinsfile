@@ -45,14 +45,14 @@ pipeline {
             steps {
                 withSonarQubeEnv("${SONARQUBE_ENV}") {
                     script {
-                        sh """
+                        sh '''
                         ${tool 'SonarScanner'}/bin/sonar-scanner \
                           -Dsonar.projectKey=testproject \
                           -Dsonar.projectName=Naa-Chitti-Lokam \
                           -Dsonar.sources=. \
                           -Dsonar.host.url=http://localhost:9000 \
-                          -Dsonar.login=${SONAR_TOKEN}
-                        """
+                          -Dsonar.login=$SONAR_TOKEN
+                        '''
                     }
                 }
             }
