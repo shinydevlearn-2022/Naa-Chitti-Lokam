@@ -41,6 +41,24 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    echo "Deploying to Kubernetes"
+                    sh '''
+                    # Ensure minikube is running
+                    minikube status || minikube start
+                    # Apply Kubernetes manifests
+                    kubectl apply -f naa-chitti-deployment.yaml
+                    # Verify resources
+                    echo "Checking deployed pods and services"
+                    kubectl get pods
+                    kubectl get svc
+                    kubectl get deployments
+                    '''
+                }
+            }
+        }
         stage('Code Quality - SonarQube') {
             steps {
                 withSonarQubeEnv("${SONARQUBE_ENV}") {
