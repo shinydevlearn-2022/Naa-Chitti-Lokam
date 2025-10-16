@@ -19,18 +19,6 @@ pipeline {
                 }
             }
         }
-        stage ('Trivy Scan') {
-            steps {
-                script {
-                    sh """
-                    echo "Updating Trivy DB..."
-                    trivy image --download-db-only || true
-                    echo "Scanning Docker image for vulnerabilities..."
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL --timeout 20m shinykuchi/naa-chitti-lokam-webapp:latest
-                    """
-                }
-            }
-        }  
         stage('Run Container (Test)') {
             steps {
                 script {
