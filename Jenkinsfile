@@ -14,6 +14,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
+                echo 'Building Docker image...'
                 script {
                     dockerImage = docker.build("${DOCKER_HUB_REPO}:latest")
                 }
@@ -21,6 +22,7 @@ pipeline {
         }
         stage('Run Container (Test)') {
             steps {
+                echo 'Running temporary test container...'
                 script {
                     sh 'docker run -d -p 3000:3000 --name naa-chitti-test ${DOCKER_HUB_REPO}:latest'
                 }
@@ -34,6 +36,7 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
+                echo 'Pushing Docker image to DockerHub...'
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDS}") {
                         dockerImage.push()
@@ -41,38 +44,37 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
+        stage('Code Quality - SonarQube') {
             steps {
-                script {
-                    echo "Deploying to Kubernetes"
+                echo '🔎 Running SonarQube code quality analysis...'
+                withSonarQubeEnv("${SONARQUBE_ENV}") {
                     sh '''
-                    # Ensure minikube is running
-                    minikube status || minikube start
-                    # Apply Kubernetes manifests
-                    kubectl apply -f naa-chitti-deployment.yaml
-                    # Verify resources
-                    echo "Checking deployed pods and services"
-                    kubectl get pods
-                    kubectl get svc
-                    kubectl get deployments
+                    ${tool 'SonarScanner'}/bin/sonar-scanner \
+                      -Dsonar.projectKey=testproject \
+                      -Dsonar.projectName=Naa-Chitti-Lokam \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=http://localhost:9000 \
+                      -Ds
+                      onar.login=$SONAR_TOKEN
                     '''
                 }
             }
         }
-        stage('Code Quality - SonarQube') {
+        stage('Deploy to Kubernetes') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_ENV}") {
-                    script {
-                        sh """
-                        ${tool 'SonarScanner'}/bin/sonar-scanner \
-                          -Dsonar.projectKey=testproject \
-                          -Dsonar.projectName=Naa-Chitti-Lokam \
-                          -Dsonar.sources=. \
-                          -Dsonar.host.url=http://localhost:9000 \
-                          -Dsonar.login=${SONAR_TOKEN}
-                        """
-                    }
-                }
+                echo '🚀 Deploying application to Kubernetes (Minikube)...'
+                sh '''
+                echo "➡ Checking Minikube status..."
+                minikube status || minikube start
+
+                echo "➡ Applying Kubernetes manifests..."
+                kubectl apply -f naa-chitti-deployment.yaml --validate=false
+
+                echo "➡ Verifying deployed resources..."
+                kubectl get pods
+                kubectl get svc
+                kubectl get deployments
+                '''
             }
         }
     }
